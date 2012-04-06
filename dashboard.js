@@ -34,16 +34,16 @@ winkstart.module('dashboard', 'dashboard', {
         THIS.uninitialized_count = THIS._count(THIS.modules);
 
         THIS.whapp_auth(function() {
-            winkstart.publish('appnav.add', { 'name' : THIS.__module });
+            winkstart.publish('whappnav.add', { 'name' : THIS.__module });
         });
     },
     {
         /* A modules object is required for the loading routine.
          * The format is as follows:
-         * <module name>: <initialization status> 
+         * <module name>: <initialization status>
          */
         modules: {
-            'monitor': false, 
+            'monitor': false,
         },
 
         /* The following code is generic and should be abstracted.
@@ -65,7 +65,7 @@ winkstart.module('dashboard', 'dashboard', {
 
             THIS.setup_page();
         },
-            
+
         activate: function() {
             var THIS = this;
             THIS.whapp_auth(function() {
@@ -75,7 +75,7 @@ winkstart.module('dashboard', 'dashboard', {
 
         initialization_check: function() {
             var THIS = this;
-            
+
             if (!THIS.is_initialized) {
                 // Load the modules
                 $.each(THIS.modules, function(k, v) {
@@ -84,7 +84,7 @@ winkstart.module('dashboard', 'dashboard', {
                         winkstart.module.loadModule(THIS.__module, k, function() {
                             this.init(function() {
                                 winkstart.log(THIS.__module + ': Initialized ' + k);
-                                    
+
                                 if(!--THIS.uninitialized_count) {
                                     winkstart.publish(THIS.__module + '.initialized', {});
                                 }
@@ -95,7 +95,7 @@ winkstart.module('dashboard', 'dashboard', {
             } else {
                 THIS.setup_page();
             }
-            
+
         },
 
         module_activate: function(args) {
@@ -135,7 +135,7 @@ winkstart.module('dashboard', 'dashboard', {
 
         // A setup_page function is required for the copy and paste code
         setup_page: function() {
-            var THIS = this; 
+            var THIS = this;
 
             winkstart.publish('dashboard.module_activate', {name: 'monitor'});
         }
